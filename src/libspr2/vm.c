@@ -35,7 +35,7 @@ int spr2_vm_exec(spr2_vm *vm, const spr2_op operation) {
   case OP_XOR:
     vm->memory[operation.operands.addr1] =
         vm->memory[operation.operands.addr1] ^
-        vm->memory[operation.operands.addr1];
+        vm->memory[operation.operands.addr2];
 
     break;
 
