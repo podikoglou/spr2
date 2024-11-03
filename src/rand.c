@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
     // encode opcode to string
     spr2_op_encode(op, buf, BUF_SIZE);
 
-    printf("%s\n", buf);
+    puts(buf);
   }
 
   return 0;
