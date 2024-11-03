@@ -42,7 +42,16 @@ int spr2_vm_exec(spr2_vm *vm, const spr2_op operation);
 /* NOTE: A good buffer size for an instruction is 11 chars,
          but it ultimately depends on VM_MEMORY. */
 
-int spr2_op_decode(const char *buf, const spr2_op operation);
+int spr2_op_parse(const char *str, int *opcode);
+int spr2_address_parse(const char *str, size_t *addr);
+int spr2_value_parse(const char *str, unsigned char *addr);
+
+int spr2_load_op_parse(const char *str, spr2_op *operation);
+int spr2_inc_op_parse(const char *str, spr2_op *operation);
+int spr2_swap_op_parse(const char *str, spr2_op *operation);
+int spr2_xor_op_parse(const char *str, spr2_op *operation);
+
+int spr2_op_decode(char *buf, spr2_op *operation);
 int spr2_op_encode(const spr2_op operation, char *buf, size_t buf_size);
 
 #endif
