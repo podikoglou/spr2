@@ -7,7 +7,7 @@
 #define MAX_VAL 8
 
 #define MIN_ADDR 0
-#define MAX_ADDR VM_MEMORY
+#define MAX_ADDR VM_MEMORY - 1
 
 #define BUF_SIZE 12
 
