@@ -79,13 +79,19 @@ int spr2_op_parse(const char *str, int *opcode) {
   return -1;
 }
 
+/* https://stackoverflow.com/a/16826908 */
+int fast_atoi(const char *str) {
+  int val = 0;
+  while (*str) {
+    val = val * 10 + (*str++ - '0');
+  }
+  return val;
+}
+
 int spr2_address_parse(const char *str, size_t *addr) {
-  int parsed = atoi(str);
+  int parsed = fast_atoi(str);
 
-  if (parsed < 0)
-    return -1;
-
-  if (parsed > VM_MEMORY - 1)
+  if (parsed < 0 || parsed > VM_MEMORY - 1)
     return -1;
 
   *addr = (size_t)parsed;
@@ -94,7 +100,7 @@ int spr2_address_parse(const char *str, size_t *addr) {
 }
 
 int spr2_value_parse(const char *str, unsigned char *addr) {
-  int parsed = atoi(str);
+  int parsed = fast_atoi(str);
 
   if (parsed < 0)
     return -1;
