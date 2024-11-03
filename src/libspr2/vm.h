@@ -37,7 +37,12 @@ typedef struct {
 
 void spr2_vm_init(spr2_vm *vm);
 void spr2_vm_reset(spr2_vm *vm);
-int spr2_vm_exec(spr2_vm *vm, const spr2_op operation);
+int spr2_vm_exec(spr2_vm *vm, const spr2_op *operation);
+
+int spr2_exec_load(spr2_vm *vm, const spr2_op *operation);
+int spr2_exec_inc(spr2_vm *vm, const spr2_op *operation);
+int spr2_exec_swap(spr2_vm *vm, const spr2_op *operation);
+int spr2_exec_xor(spr2_vm *vm, const spr2_op *operation);
 
 /* NOTE: A good buffer size for an instruction is 11 chars,
          but it ultimately depends on VM_MEMORY. */

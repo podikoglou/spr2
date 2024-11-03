@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
       return -1;
 
     /* execute on VM */
-    spr2_vm_exec(&vm, op);
+    spr2_vm_exec(&vm, &op);
   }
 
   /* print VM memory */

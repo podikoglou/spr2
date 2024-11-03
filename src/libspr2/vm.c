@@ -11,37 +11,46 @@ void spr2_vm_reset(spr2_vm *vm) {
   }
 }
 
-int spr2_vm_exec(spr2_vm *vm, const spr2_op operation) {
-  switch (operation.opcode) {
-  case OP_LOAD: {
-    vm->memory[0] = operation.operands.value;
-    break;
-  }
-
-  case OP_INC: {
-    vm->memory[operation.operands.addr1]++;
-    break;
-  }
-
-  case OP_SWAP: {
-    const unsigned char temp = vm->memory[operation.operands.addr1];
-
-    vm->memory[operation.operands.addr1] = vm->memory[operation.operands.addr2];
-    vm->memory[operation.operands.addr2] = temp;
-
-    break;
-  };
-
+int spr2_vm_exec(spr2_vm *vm, const spr2_op *operation) {
+  switch (operation->opcode) {
+  case OP_LOAD:
+    return spr2_exec_load(vm, operation);
+  case OP_INC:
+    return spr2_exec_inc(vm, operation);
+  case OP_SWAP:
+    return spr2_exec_swap(vm, operation);
   case OP_XOR:
-    vm->memory[operation.operands.addr1] =
-        vm->memory[operation.operands.addr1] ^
-        vm->memory[operation.operands.addr2];
-
-    break;
-
-  default:
-    return -1;
+    return spr2_exec_xor(vm, operation);
   }
+
+  return -1;
+}
+
+int spr2_exec_load(spr2_vm *vm, const spr2_op *operation) {
+  vm->memory[0] = operation->operands.value;
+
+  return 0;
+}
+
+int spr2_exec_inc(spr2_vm *vm, const spr2_op *operation) {
+  vm->memory[operation->operands.addr1]++;
+
+  return 0;
+}
+
+int spr2_exec_swap(spr2_vm *vm, const spr2_op *operation) {
+  const unsigned char temp = vm->memory[operation->operands.addr1];
+
+  vm->memory[operation->operands.addr1] = vm->memory[operation->operands.addr2];
+  vm->memory[operation->operands.addr2] = temp;
+
+  return 0;
+}
+
+int spr2_exec_xor(spr2_vm *vm, const spr2_op *operation) {
+  vm->memory[operation->operands.addr1] =
+      vm->memory[operation->operands.addr1] ^
+      vm->memory[operation->operands.addr2];
 
   return 0;
 }
